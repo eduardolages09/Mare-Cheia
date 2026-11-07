@@ -1,0 +1,457 @@
+/* site-fabrica — sites com várias casas (varias.py): landing, página base e página premium.
+   Vem depois de base.css e tema.css: usa a mesma paleta, as mesmas letras, o topo, o rodapé e o visor. */
+
+html { scroll-padding-top: calc(var(--topo-h) + 12px); }
+.vr-on .vr { opacity: 0; transform: translate3d(0, 22px, 0); transition: opacity .8s var(--sai), transform .9s var(--sai); }
+.vr-on .vr.visto { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .vr-on .vr { opacity: 1; transform: none; transition: none; } }
+
+.v-sec { position: relative; z-index: 2; background: var(--fundo); padding-block: clamp(4.5rem, 9vw, 8rem); }
+.v-sec--fundo2 { background: var(--fundo-2); }
+.v-sec--escuro { background: var(--escuro); color: var(--claro); }
+.v-cab { margin-bottom: clamp(2.2rem, 4.4vw, 3.6rem); }
+.v-titulo { font-family: var(--serif); font-weight: var(--peso-titulo); font-size: clamp(2.1rem, 1.5rem + 2.2vw, 3.5rem); line-height: 1.08; letter-spacing: -.012em; text-wrap: balance; }
+.v-titulo em { font-style: normal; color: var(--tinta-2); }
+.v-sec--escuro .v-titulo em { color: color-mix(in srgb, var(--claro) 66%, transparent); }
+.v-frase { margin-top: .9rem; max-width: 52ch; color: var(--tinta-2); font-size: 1.04rem; }
+.v-num { margin-bottom: 1rem; font-size: .74rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--destaque); }
+.v-eti { font-size: .74rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--tinta-2); }
+.v-link { display: inline-flex; gap: .5em; align-items: baseline; font-weight: 500; color: var(--destaque); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+.v-seta { transition: transform .4s var(--sai); }
+a:hover .v-seta, button:hover .v-seta, .v-link:hover .v-seta { transform: translateX(4px); }
+.v-voltar { display: inline-flex; gap: .5em; font-size: .92rem; color: var(--tinta-2); text-decoration: none; }
+.v-voltar:hover { color: var(--tinta); }
+
+/* ---------- landing ---------- */
+.vl-hero__ecra { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: .9rem; padding: 0 var(--margem) clamp(2.2rem, 8svh, 5rem); text-shadow: 0 1px 3px rgba(8, 18, 24, .55), 0 2px 26px rgba(8, 18, 24, .55); }
+.vl-hero--cima .vl-hero__ecra { justify-content: flex-start; padding-top: calc(var(--topo-h) + clamp(3rem, 19svh, 11rem)); }   /* 2026-11-07: «demasiado em cima» */
+.vl-hero__ecra .v-eti { color: #fff; }
+.vl-hero__ecra h1 { font-family: var(--nome); font-weight: var(--peso-nome); font-size: clamp(3.4rem, 2rem + 6.4vw, 7.4rem); line-height: 1; letter-spacing: -.02em; }
+.vl-hero__frase { max-width: 34ch; font-size: clamp(1.05rem, .98rem + .3vw, 1.25rem); line-height: 1.4; }
+.vl-hero__ecra .v-botoes { margin-top: .7rem; }
+
+.vc-lista { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.4rem, 3.4vw, 3.4rem); align-items: start; }
+.vc:nth-child(2) { margin-top: clamp(0px, 7vw, 6.5rem); }
+.vc > a { display: block; text-decoration: none; color: inherit; }
+.vc figure { overflow: hidden; aspect-ratio: 3 / 2; background: var(--fundo-2); }
+.vc figure img { width: 100%; height: 100%; object-fit: cover; }
+.vc__texto { padding-top: 1.3rem; }
+.vc__texto h3 { margin: .5rem 0 .45rem; font-family: var(--serif); font-weight: var(--peso-titulo); font-size: clamp(1.7rem, 1.3rem + 1.1vw, 2.4rem); line-height: 1.12; }
+.vc__texto h3 em, .v-outra h3 em { font-style: normal; color: var(--tinta-2); white-space: nowrap; }
+.vc__vista { color: var(--tinta-2); margin-bottom: 1.1rem; }
+
+.ve { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.4rem clamp(1.6rem, 4vw, 4rem); }
+.ve svg, .vb-tem svg, .vb-factos svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.ve li { padding-top: 1.1rem; border-top: 1px solid color-mix(in srgb, var(--claro) 22%, transparent); }
+.ve h3 { margin: .7rem 0 .2rem; font-family: var(--serif); font-weight: var(--peso-titulo); font-size: 1.3rem; }
+.ve p { color: color-mix(in srgb, var(--claro) 74%, transparent); }
+
+.vg { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.2rem, 2.6vw, 2.4rem); }
+.vg figure { overflow: hidden; aspect-ratio: 3 / 2; margin-bottom: 1rem; background: var(--fundo-2); }
+.vg img { width: 100%; height: 100%; object-fit: cover; }
+.vg h3 { font-family: var(--serif); font-weight: var(--peso-titulo); font-size: 1.35rem; margin-bottom: .25rem; }
+.vg p { color: var(--tinta-2); }
+
+/* hero da landing em vídeo: fica preso e a maré sobe por cima dele; a primeira imagem do vídeo fica por baixo até ele correr */
+.vl-hero--preso { position: sticky; top: 0; z-index: 1; height: 100svh; min-height: 0; }
+.hero__foto video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--hero-foco, 50% 50%); opacity: 0; transition: opacity .9s var(--sai); }
+.hero__foto video.pronto { opacity: 1; }
+.v-bainha--mare path:first-child { opacity: .46; }
+
+/* região: a carta enche o ecrã e fica presa; os lugares passam por cima do mar, e o rumo desenha-se até cada um */
+.vt { position: relative; z-index: 2; background: var(--escuro); color: var(--claro); --vt-col: min(36vw, 30rem); }
+.vt__cab { position: absolute; z-index: 3; top: clamp(4.5rem, 9vw, 8rem); left: var(--margem); width: var(--vt-col); }
+.vt .v-cab { margin-bottom: 0; }
+.vt .v-titulo { font-size: clamp(1.9rem, 1.35rem + 1.5vw, 2.75rem); }
+.vt .v-titulo em { display: block; color: color-mix(in srgb, var(--claro) 66%, transparent); }
+.vt__palco { position: sticky; top: 0; height: 100svh; overflow: hidden; background: var(--escuro); }
+.vt__palco::after { content: ""; position: absolute; inset: 0 auto 0 0; z-index: 1; width: calc(var(--vt-col) + 2 * var(--margem)); background: var(--escuro); box-shadow: 18px 0 40px -18px rgba(8, 26, 34, .5); }
+.vt .v-perto { margin: 1.3rem 0 0; }
+.vt .v-perto li { padding: .42rem 0; font-size: .92rem; border-bottom-color: color-mix(in srgb, var(--claro) 18%, transparent); }
+.vt .v-perto span { color: color-mix(in srgb, var(--claro) 76%, transparent); }
+.vt__dist { margin-bottom: .3rem; font-size: .84rem; font-weight: 500; letter-spacing: .02em; color: color-mix(in srgb, var(--claro) 78%, transparent); }
+.vt__carta { position: absolute; left: 0; top: 0; width: calc(max(100vw, 100svh * var(--ar)) * var(--zmax)); aspect-ratio: var(--ar); transform-origin: 0 0; transform: scale(calc(1 / var(--zmax))); }
+.vt__carta img { position: absolute; display: block; height: auto; max-width: none; }
+.vt__base { inset: 0; width: 100%; height: 100% !important; }
+.vt__rumos { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.vt__rumos path { fill: none; stroke: var(--escuro); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.vt__rumos path:nth-child(odd) { stroke: var(--fundo); stroke-width: 3.6; }
+.vt__marcas { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.vt__p { position: absolute; left: 0; top: 0; }
+.vt__p--nome span, .vt__p--lugar span { position: absolute; white-space: nowrap; font-family: var(--serif); font-style: italic; font-size: clamp(.78rem, .72rem + .2vw, .94rem); color: var(--tinta); transform: translate(-50%, -50%); text-shadow: 0 0 3px var(--fundo), 0 0 3px var(--fundo), 0 0 6px var(--fundo), 0 0 6px var(--fundo); transition: opacity .5s; }
+.vt__p--mar span { color: color-mix(in srgb, var(--claro) 80%, transparent); text-shadow: none; }
+.vt__p--nome.vt__p--longe span { opacity: 0; }
+.vt__p--lugar i { position: absolute; width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; border-radius: 50%; background: var(--escuro); opacity: 0; transition: opacity .5s, transform .5s var(--sai); }
+.vt__p--lugar small { margin-left: .55em; font-family: var(--sans); font-size: .76em; color: var(--tinta-2); }
+.vt__p--lugar span { left: 13px; padding: .12em .5em .16em; font-style: normal; font-size: clamp(.92rem, .84rem + .3vw, 1.14rem); color: var(--tinta); background: var(--fundo); text-shadow: none; transform: translate(0, -50%); opacity: 0; }
+.vt__p--lugar.vt__p--esq span { left: -13px; transform: translate(-100%, -50%); }
+.vt__p--lugar.ja i { opacity: 1; }
+.vt__p--lugar.ativo i { opacity: 1; transform: scale(1.35); }
+.vt__p--lugar.ativo span { opacity: 1; }
+.vt__palco .vm__norte { left: auto; right: var(--margem); bottom: 2.4rem; fill: var(--tinta); }
+.vt__osm { position: absolute; right: var(--margem); bottom: .55rem; font-size: .68rem; color: var(--tinta-2); text-shadow: 0 0 3px var(--fundo), 0 0 3px var(--fundo); }
+.vt__lista { position: relative; z-index: 2; margin-top: -100svh; padding: clamp(24rem, 62svh, 38rem) 0 8svh var(--margem); width: calc(var(--vt-col) + var(--margem)); }
+.vt__lugar { min-height: 92svh; display: flex; flex-direction: column; justify-content: center; }
+.vt__lugar figure { overflow: hidden; aspect-ratio: 3 / 2; margin-bottom: 1.1rem; background: var(--fundo-2); }
+.vt__lugar img { width: 100%; height: 100%; object-fit: cover; }
+.vt__lugar h3 { margin-bottom: .3rem; font-family: var(--serif); font-weight: var(--peso-titulo); font-size: 1.5rem; }
+.vt__lugar p { color: color-mix(in srgb, var(--claro) 78%, transparent); }
+
+.vl-fim { position: relative; z-index: 2; min-height: 86svh; display: grid; align-items: start; overflow: hidden; color: #fff; background: var(--escuro); }
+.vl-fim figure, .vl-fim figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.vl-fim__ecra { position: relative; z-index: 1; padding: clamp(3.5rem, 11svh, 7rem) var(--margem) 3rem; text-shadow: 0 1px 3px rgba(8, 18, 24, .5), 0 2px 26px rgba(8, 18, 24, .55); }
+.vl-fim h2 { font-family: var(--serif); font-weight: var(--peso-titulo); font-size: clamp(2.3rem, 1.6rem + 2.8vw, 4.2rem); line-height: 1.06; letter-spacing: -.012em; }
+.vl-fim h2 em { display: block; font-style: normal; }
+.vl-fim__ecra > div { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.6rem; }
+.vl-fim .botao { text-shadow: none; }
+.vl-fim__ir { background: var(--claro); color: var(--tinta); min-height: 46px; padding-inline: 1.7rem; }
+.vl-fim__ir:hover { background: #fff; }
+.vl-fim__ir::after { color: var(--destaque); }
+
+/* ---------- base (ficha) ---------- */
+.v-base .topo { background: var(--fundo); }
+.v-base main { padding-top: var(--topo-h); }
+.vb-cab { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .2rem 2rem; padding-block: clamp(1rem, 2.4svh, 1.7rem) clamp(.8rem, 1.8svh, 1.2rem); }
+.vb-cab h1 { font-family: var(--serif); font-weight: var(--peso-titulo); font-size: clamp(1.9rem, 1.4rem + 1.5vw, 2.8rem); line-height: 1.08; letter-spacing: -.012em; }
+.vb-cab h1 em { font-style: normal; color: var(--tinta-2); white-space: nowrap; }
+.vb-cab p { color: var(--tinta-2); }
+/* uma grande e duas ao lado: 2fr + 1fr com as três em 3:2 dá sempre as mesmas alturas, sem cortar nada */
+.vb-mos { position: relative; display: grid; grid-template-columns: 2fr 1fr; gap: 6px; }
+.vb-mos > button:not(.vb-mos__todas) { display: block; width: 100%; overflow: hidden; background: var(--fundo-2); aspect-ratio: 3 / 2; }
+.vb-mos > button:first-child { grid-row: span 2; height: 100%; aspect-ratio: auto; }
+.vb-mos img { width: 100%; height: 100%; object-fit: cover; }
+.vb-mos .vb-mos__todas { position: absolute; right: 14px; bottom: 14px; padding: .55rem .95rem; background: var(--fundo); color: var(--tinta); font-size: .9rem; font-weight: 500; box-shadow: 0 8px 22px -12px rgba(10, 20, 26, .6); }
+.vb-mos .vb-mos__todas:hover { background: #fff; }
+
+.vb-g { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 372px); gap: clamp(2.4rem, 5vw, 5rem); align-items: start; padding-block: clamp(2rem, 4vw, 3.4rem) clamp(3.4rem, 7vw, 6rem); }
+.vb-lado { position: sticky; top: calc(var(--topo-h) + 1rem); scroll-margin-top: calc(var(--topo-h) + 1rem); max-height: calc(100svh - var(--topo-h) - 2rem); overflow-y: auto; scrollbar-width: none; }
+.vb-ficha > section { padding-block: clamp(1.7rem, 3vw, 2.5rem); }
+.vb-ficha > section:first-child { padding-top: 0; }
+.vb-ficha > section + section { border-top: 1px solid color-mix(in srgb, var(--tinta) 15%, transparent); }
+.vb-ficha h2 { margin-bottom: 1rem; font-family: var(--serif); font-weight: var(--peso-titulo); font-size: clamp(1.45rem, 1.25rem + .6vw, 1.85rem); line-height: 1.15; }
+.vb-texto { font-family: var(--serif); font-weight: var(--peso-titulo); font-size: clamp(1.14rem, 1.05rem + .32vw, 1.36rem); line-height: 1.42; }
+.vb-texto p + p { margin-top: .8rem; }
+.vb-factos { list-style: none; padding: 0; margin-top: 1.3rem; display: flex; flex-wrap: wrap; gap: .6rem 1.8rem; }
+.vb-factos li, .vb-tem li { display: flex; align-items: center; gap: .65em; }
+.vb-tem { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem 1.4rem; }
+.vb-tem li { font-size: .96rem; }
+.vb-factos svg, .vb-tem svg { width: 21px; height: 21px; color: var(--destaque); }
+.vb-hor { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 clamp(1.6rem, 4vw, 3.4rem); }
+.vb-hor li { display: flex; justify-content: space-between; gap: 1rem; padding: .6rem 0; border-bottom: 1px solid color-mix(in srgb, var(--tinta) 13%, transparent); }
+.vb-hor span { color: var(--tinta-2); }
+.vb-hor b { font-weight: 500; text-align: right; font-variant-numeric: tabular-nums lining-nums; }
+.vb-morada { margin: -.5rem 0 1.1rem; color: var(--tinta-2); }
+#onde .v-perto { columns: 2; column-gap: clamp(1.6rem, 4vw, 3.4rem); margin-top: 1.2rem; }
+#onde .v-perto li { break-inside: avoid; }
+
+/* cartão de reserva: datas num calendário próprio, pessoas e o botão para o Booking */
+.vd { display: grid; gap: 8px; padding: 1.15rem; background: var(--escuro); color: var(--claro); }
+.vd__preco { margin-bottom: .35rem; color: color-mix(in srgb, var(--claro) 76%, transparent); }
+.vd__preco b { font-family: var(--serif); font-weight: var(--peso-titulo); font-size: 2rem; line-height: 1.1; color: var(--claro); font-variant-numeric: lining-nums; }
+.vd__casas { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: .3rem; }
+.vd__casas input { position: absolute; opacity: 0; }
+.vd__casas span { display: block; padding: .6rem .5rem; border: 1px solid color-mix(in srgb, var(--claro) 34%, transparent); font-size: .92rem; text-align: center; cursor: pointer; transition: background .3s, color .3s; }
+.vd__casas input:checked + span { background: var(--claro); border-color: var(--claro); color: var(--tinta); font-weight: 500; }
+.vd__casas input:focus-visible + span { outline: 2px solid var(--claro); outline-offset: 2px; }
+.vd__datas { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.vd__campo { display: block; width: 100%; padding: .5rem .7rem .55rem; background: #fff; color: var(--tinta); text-align: left; box-shadow: inset 0 0 0 1px transparent; transition: box-shadow .25s; }
+.vd__campo span, .vd__pessoas > span { display: block; font-size: .68rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--tinta-2); }
+.vd__campo b { display: block; margin-top: .12rem; font-weight: 500; font-size: .98rem; font-variant-numeric: tabular-nums lining-nums; }
+.vd__campo:not(.cheio) b { font-weight: 400; color: var(--tinta-2); }
+.vd__campo.agora { box-shadow: inset 0 0 0 2px var(--destaque); }
+.vd__pessoas { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .4rem .7rem; background: #fff; color: var(--tinta); }
+.vd__pessoas div { display: flex; align-items: center; gap: .9rem; }
+.vd__pessoas button { width: 36px; height: 36px; border: 1px solid color-mix(in srgb, var(--tinta) 22%, transparent); font-size: 1.1rem; line-height: 1; color: var(--tinta); }
+.vd__pessoas button:disabled { opacity: .3; cursor: default; }
+.vd__pessoas output { min-width: 1.2ch; text-align: center; font-weight: 500; font-variant-numeric: tabular-nums lining-nums; }
+.vd__ir { justify-content: center; width: 100%; min-height: 48px; margin-top: .2rem; background: var(--claro); color: var(--tinta); }
+.vd__ir:hover { background: #fff; }
+.vd__ir::after { color: var(--destaque); }
+.vd__nota { margin-top: .35rem; font-size: .78rem; line-height: 1.4; color: color-mix(in srgb, var(--claro) 66%, transparent); }
+.vd__cal { padding: .6rem .6rem .7rem; background: #fff; color: var(--tinta); }
+.vd__cal[hidden] { display: none; }
+.vd__mes { display: flex; align-items: center; justify-content: space-between; margin-bottom: .35rem; font-family: var(--serif); font-weight: var(--peso-titulo); }
+.vd__mes button { width: 34px; height: 34px; font-size: 1.05rem; color: var(--tinta); }
+.vd__mes button:disabled { opacity: .22; cursor: default; }
+.vd__dias { display: grid; grid-template-columns: repeat(7, 1fr); }
+.vd__dias span { padding-bottom: .25rem; font-size: .68rem; font-weight: 500; text-align: center; color: var(--tinta-2); }
+.vd__dias button { aspect-ratio: 1; font-size: .9rem; color: var(--tinta); font-variant-numeric: tabular-nums lining-nums; }
+.vd__dias button:hover:not(:disabled) { background: var(--fundo-2); }
+.vd__dias button:disabled { color: color-mix(in srgb, var(--tinta) 28%, transparent); cursor: default; }
+.vd__dias button.entre { background: color-mix(in srgb, var(--destaque) 14%, #fff); }
+.vd__dias button.ponta { background: var(--destaque); color: #fff; }
+
+/* a reserva numa janela (landing e Premium) */
+.vdlg { width: min(400px, calc(100vw - 2rem)); max-height: calc(100svh - 2rem); padding: 0; border: 0; background: var(--escuro); color: var(--claro); box-shadow: 0 30px 80px -20px rgba(8, 20, 26, .7); overflow-y: auto; }
+.vdlg::backdrop { background: rgba(8, 20, 26, .55); }
+.vdlg[open] { animation: vdlg-entra .45s var(--sai); }
+@keyframes vdlg-entra { from { opacity: 0; transform: translate3d(0, 14px, 0); } }
+.vdlg__cab { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.15rem 0; }
+.vdlg__cab h2 { font-family: var(--serif); font-weight: var(--peso-titulo); font-size: 1.5rem; }
+.vdlg__x { width: 36px; height: 36px; margin-right: -.4rem; font-size: 1.5rem; line-height: 1; color: var(--claro); }
+
+/* mapa do bairro: claro, com a casa no meio de dois anéis a pé */
+.vm { position: relative; margin: 0; aspect-ratio: var(--ar, 1.5); overflow: hidden; background: var(--fundo-2); }
+.vm img { width: 100%; height: 100%; object-fit: cover; }
+.vm figcaption { position: absolute; right: 10px; bottom: 7px; font-size: .68rem; color: var(--tinta-2); }
+/* a casa: a etiqueta aponta para o sítio exato, sem o tapar */
+.vm__casa { position: absolute; display: grid; justify-items: center; transform: translate(-50%, -100%); white-space: nowrap; filter: drop-shadow(0 8px 14px rgba(8, 20, 26, .32)); }
+.vm__casa b { position: relative; display: grid; gap: .1em; padding: .42em .95em .5em; background: var(--escuro); color: var(--claro); font-family: var(--serif); font-weight: 400; font-size: clamp(1rem, .9rem + .35vw, 1.2rem); line-height: 1.2; text-align: center; }
+.vm__casa b::after { content: ""; position: absolute; left: 50%; top: 100%; width: 12px; height: 7px; margin-left: -6px; background: var(--escuro); clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.vm__casa small { font-family: var(--sans); font-size: .68em; letter-spacing: .01em; opacity: .82; }
+.vm__casa i { width: 15px; height: 15px; margin: 9px 0 -7.5px; border-radius: 50%; background: var(--destaque); border: 3px solid #fff; }
+.v-perto { list-style: none; padding: 0; margin-bottom: 1.1rem; }
+.v-perto li { display: flex; justify-content: space-between; gap: 1rem; padding: .55rem 0; border-bottom: 1px solid color-mix(in srgb, var(--tinta) 13%, transparent); }
+.v-perto b { font-weight: 500; white-space: nowrap; font-variant-numeric: tabular-nums lining-nums; }
+
+/* a outra casa */
+.v-outra { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(1.4rem, 4vw, 3.6rem); align-items: center; text-decoration: none; color: inherit; }
+.v-outra figure { overflow: hidden; aspect-ratio: 3 / 2; }
+.v-outra img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s var(--sai); }
+.v-outra h3 { margin: .5rem 0 .4rem; font-family: var(--serif); font-weight: var(--peso-titulo); font-size: clamp(1.7rem, 1.3rem + 1.1vw, 2.4rem); line-height: 1.12; }
+.v-outra p:not(.v-eti) { color: var(--tinta-2); margin-bottom: 1rem; }
+
+/* ---------- premium ---------- */
+/* o hero fica preso e a página sobe por cima dele como uma cortina; a orla (.v-bainha) desenha-a o varias.js */
+.v-bainha { position: absolute; left: 0; bottom: calc(100% - 1px); width: 100%; height: clamp(36px, min(13svh, 15vw), 130px); overflow: visible; pointer-events: none; fill: var(--fundo); }
+.v-veu { position: absolute; inset: 0; z-index: 1; background: #071318; opacity: 0; pointer-events: none; }
+.vp-hero { position: sticky; top: 0; z-index: 1; height: 100svh; min-height: 0; }
+.hero__camada { position: absolute; inset: 0; }
+.vp-hero__ecra > * { animation: vp-sobe 1.3s var(--sai) both; }
+.vp-hero__ecra > :nth-child(2) { animation-delay: .12s; }
+.vp-hero__ecra > :nth-child(3) { animation-delay: .26s; }
+.vp-hero__ecra > :nth-child(4) { animation-delay: .4s; }
+@keyframes vp-sobe { from { opacity: 0; transform: translate3d(0, 26px, 0); } }
+@media (prefers-reduced-motion: reduce) { .vp-hero__ecra > * { animation: none; } }
+.vp-hero__ecra { position: absolute; inset: 0 0 auto; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; padding: calc(var(--topo-h) + clamp(1rem, 6svh, 3.6rem)) var(--margem) 0; color: #fff; text-shadow: 0 1px 3px rgba(8, 26, 40, .45), 0 2px 28px rgba(8, 26, 40, .5); }
+.vp-hero__ecra .v-eti { color: #fff; }
+.vp-hero__ecra h1 { margin: .7rem 0 .7rem; font-family: var(--nome); font-weight: var(--peso-nome); font-size: clamp(2.7rem, 1.5rem + 4.4vw, 5.6rem); line-height: 1.04; letter-spacing: -.018em; }
+.vp-hero__ecra h1 em { color: inherit; white-space: nowrap; }
+.vp-hero__frase { font-family: var(--serif); font-size: clamp(1.08rem, 1rem + .4vw, 1.4rem); line-height: 1.35; }
+.vp-hero__ir { margin-top: clamp(1.1rem, 3svh, 1.8rem); justify-content: center; }
+
+.vp-abre { position: relative; z-index: 2; background: var(--fundo); padding-block: clamp(4rem, 12svh, 8.5rem) clamp(3.4rem, 9svh, 6.5rem); }
+.vp-abre__g { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 1.6rem clamp(2rem, 6vw, 6rem); align-items: end; }
+.vp-abre h2 { font-family: var(--serif); font-weight: var(--peso-titulo); font-size: clamp(2.4rem, 1.5rem + 3.6vw, 5rem); line-height: 1.05; letter-spacing: -.016em; }
+.vp-abre h2 em { display: block; font-style: normal; color: var(--tinta-2); }
+.vp-abre p { margin-bottom: 1rem; max-width: 38ch; color: var(--tinta-2); font-size: 1.06rem; }
+
+/* hero premium: o voo de drone real chega e pousa na foto do hero (ficheiro original, sem planos nem zoom em repouso). Uma vez por sessão;
+   ao pousar, a foto acaba de descer (só durante o cruzamento, depois fica a 1:1) e o nome entra letra a letra, de desfocado para nítido */
+.vp-hero .hero__foto .vp-foto { position: absolute; inset: 0 auto 0 0; width: max(116%, 100cqh * var(--ar, 1.5)); max-width: none; height: 100%; object-fit: cover; object-position: var(--hero-foco, 50% 50%); }
+/* travelling de drone: a foto um pouco mais larga do que o ecrã e a câmara a andar devagar da esquerda para a direita, ida e volta;
+   no telemóvel ao alto a foto inteira à altura do ecrã e a câmara anda só pelo meio dela (as pontas são casas). Parado durante o voo; nada com movimento reduzido */
+.vp-hero .hero__camada { overflow: hidden; container-type: size; }
+.vp-hero .hero__foto .vp-foto { --pan-a: 0; --pan-b: 1; animation: vp-pan 30s cubic-bezier(.45, 0, .55, 1) .3s infinite alternate both; }
+.vp-hero.voa .vp-foto { animation-play-state: paused; }
+@keyframes vp-pan { from { translate: calc((100cqw - 100%) * var(--pan-a)) 0; } to { translate: calc((100cqw - 100%) * var(--pan-b)) 0; } }
+@media (max-aspect-ratio: 1/1) { .vp-hero .hero__foto .vp-foto { --pan-a: .24; --pan-b: .76; } }
+@media (prefers-reduced-motion: reduce) { .vp-hero .hero__foto .vp-foto { animation: none; } }
+/* câmara em profundidade (hero.profundidade): o canvas desenha a foto e mexe a câmara; por baixo, a foto parada e igual ao repouso do canvas
+   (sem o travelling), para não haver salto nem enquanto as texturas carregam nem se o WebGL falhar */
+.vp-hero.p3d .hero__foto .vp-foto { width: 100%; animation: none; translate: none; }
+.vp-3d { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity .4s linear; }
+.vp-3d.pronto { opacity: 1; }
+.vp-hero.voa .vp-3d { transform: translate3d(0, 2.6%, 0) scale(1.035); }
+.vp-hero.pousa .vp-3d { transition: transform 2.8s cubic-bezier(.22, .61, .2, 1), opacity .4s linear; }
+@media (prefers-reduced-motion: reduce) { .vp-3d { display: none; } }
+.vp-drone { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; }
+.vp-hero.voa .vp-drone { opacity: 1; }
+.vp-hero.voa .vp-foto { transform: translate3d(0, 2.6%, 0) scale(1.035); }
+.vp-hero.pousa .vp-drone { opacity: 0; transition: opacity .5s linear .95s; }
+.vp-hero.pousa .vp-foto { transition: transform 2.8s cubic-bezier(.22, .61, .2, 1); }
+.vp-hero.voa .vp-hero__ecra > * { animation: none; opacity: 0; }
+.vp-hero.voa .vp-hero__ir { visibility: hidden; }
+.vp-hero.voa .vp-hero__ecra > .v-eti { opacity: 1; animation: vp-sobe 1.4s var(--sai) .9s both; }
+/* a passagem do voo para a foto faz-se pela luz do sol (o da foto, em cima à direita), nunca em dupla exposição */
+.vp-luz { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; background: radial-gradient(circle at var(--sol, 74% 18%), #fffaf0 0, rgba(255, 244, 226, .96) 26%, rgba(250, 236, 214, .86) 62%, rgba(236, 222, 204, .8) 100%); }
+.vp-hero.pousa .vp-luz { animation: vp-luz 2.6s cubic-bezier(.45, 0, .3, 1) both; }
+@keyframes vp-luz { 0% { opacity: 0; } 45% { opacity: .9; } 100% { opacity: 0; } }
+.vp-hero__ecra h1 { animation: none; }
+.vp-hero__ecra h1 .p { display: inline-block; white-space: nowrap; }
+.vp-hero__ecra h1 .l { display: inline-block; animation: vp-letra 1.25s var(--sai) both; animation-delay: calc(.2s + var(--i) * 34ms); }
+.vp-hero.voa .vp-hero__ecra h1 .l { animation: none; opacity: 0; }
+.vp-hero__ecra > :nth-child(3) { animation-delay: .85s; }
+.vp-hero__ecra > :nth-child(4) { animation-delay: 1.05s; }
+@keyframes vp-letra { from { opacity: 0; filter: blur(12px); transform: translate3d(0, .1em, 0); } to { opacity: 1; filter: none; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .vp-drone { display: none; } .vp-hero__ecra h1 .l { animation: none; } }
+
+/* a casa divisão a divisão: o nome fica preso enquanto as fotos passam; as fotos nunca maiores do que ~820 px (a resolução real anda nos 1500);
+   o fundo muda de tom com a divisão. Movimento só de entrada: sobem e aparecem, sem zoom nem cortes */
+.vv { position: relative; z-index: 2; background: var(--fundo); color: var(--tinta); padding-bottom: clamp(3rem, 7vw, 6rem); transition: background-color 1s var(--sai), color 1s var(--sai); }
+.vv.escuro { background: var(--escuro); color: var(--claro); }
+.vv-d { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.75fr); gap: 2rem clamp(2rem, 5.5vw, 6rem); width: min(100% - 2 * var(--margem), 1320px); margin-inline: auto; padding-block: clamp(3rem, 7vw, 6rem); }
+.vv-t { position: sticky; top: calc(var(--topo-h) + 18svh); align-self: start; padding-top: 1.1rem; border-top: 1px solid color-mix(in srgb, currentColor 24%, transparent); }
+.vv-n { font-size: .74rem; font-weight: 500; letter-spacing: .18em; color: var(--destaque); transition: color 1s var(--sai); }
+.vv-n span { opacity: .55; }
+.vv.escuro .vv-n { color: var(--destaque-claro); }
+.vv-t h3 { margin: .9rem 0 .6rem; font-family: var(--serif); font-weight: var(--peso-titulo); font-size: clamp(2rem, 1.45rem + 2vw, 3.3rem); line-height: 1.06; letter-spacing: -.014em; text-wrap: balance; }
+.vv-t p:last-child { max-width: 30ch; color: var(--tinta-2); transition: color 1s var(--sai); }
+.vv.escuro .vv-t p:last-child { color: color-mix(in srgb, var(--claro) 74%, transparent); }
+.vv-fotos { display: flex; flex-direction: column; gap: clamp(1.2rem, 3vw, 2.6rem); }
+.vv-fila { width: var(--w, 100%); }
+.vv-fila--dir { margin-left: auto; }
+.vv-fila--par { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+.vv-f { display: block; width: 100%; aspect-ratio: var(--ar); overflow: hidden; background: color-mix(in srgb, currentColor 7%, transparent); cursor: zoom-in; }
+.vv-f img { width: 100%; height: 100%; object-fit: cover; }
+.vr-on .vv .vr { transform: translate3d(0, 44px, 0); transition: opacity 1.1s cubic-bezier(.625, .05, 0, 1), transform 1.3s cubic-bezier(.625, .05, 0, 1); }
+.vr-on .vv .vr.visto { transform: none; }
+/* ver a casa toda: alinhado pela coluna das fotos, no fim da visita */
+.vv-todas { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.75fr); column-gap: clamp(2rem, 5.5vw, 6rem); width: min(100% - 2 * var(--margem), 1320px); margin-inline: auto; }
+.vv-todas .v-link { grid-column: 2; justify-self: start; font-size: 1.05rem; }
+.vv.escuro .vv-todas .v-link { color: var(--claro); }
+@media (max-width: 900px) {
+  .vv-todas { grid-template-columns: minmax(0, 1fr); }
+  .vv-todas .v-link { grid-column: 1; }
+  .vv-d { grid-template-columns: minmax(0, 1fr); padding-block: clamp(2.4rem, 8vw, 3.6rem); }
+  .vv-t { position: static; }
+  .vv-fila { width: max(var(--w, 100%), 86%); }
+}
+/* telemóvel deitado: lado a lado, como no computador, para nenhuma foto passar da altura do ecrã */
+@media (max-height: 559px) and (min-width: 561px) {
+  .vv-d { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); }
+  .vv-t { position: sticky; top: calc(var(--topo-h) + 1rem); }
+  .vv-t h3 { font-size: 1.7rem; }
+  .vv-fila { width: var(--w, 100%); }
+  .vv-fila--par { width: 66%; margin-left: auto; }
+}
+
+.vp-dia { position: relative; z-index: 3; background: var(--fundo); padding-top: clamp(4.5rem, 9vw, 8rem); }
+.vp-dia__g { display: grid; grid-template-columns: 1fr 1fr; }
+.vp-dia__p { min-width: 0; }
+.vp-dia__p:last-child { background: var(--escuro); color: var(--claro); }
+.vp-dia__p > button { display: block; width: 100%; overflow: hidden; }
+.vp-dia__p img { width: 100%; }
+.vp-dia__t { padding: clamp(1.4rem, 3vw, 2.6rem) var(--margem) clamp(2.4rem, 5vw, 4rem); }
+.vp-dia__p:last-child .v-eti { color: color-mix(in srgb, var(--claro) 70%, transparent); }
+.vp-dia__t h3 { margin: .35rem 0 .3rem; font-family: var(--serif); font-weight: var(--peso-titulo); font-size: clamp(1.5rem, 1.25rem + .8vw, 2rem); line-height: 1.15; }
+.vp-dia__t > p:last-child { max-width: 44ch; color: var(--tinta-2); }
+.vp-dia__p:last-child .vp-dia__t > p:last-child { color: color-mix(in srgb, var(--claro) 76%, transparent); }
+
+/* onde fica: sem mapa (só a landing tem a carta); o título à esquerda, as distâncias à direita */
+.vp-onde { position: relative; z-index: 2; padding: clamp(4rem, 9vw, 7.5rem) 0; background: var(--fundo-2); }
+.vp-onde__t { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.75fr); column-gap: clamp(2rem, 5.5vw, 6rem); align-items: start; width: min(100% - 2*var(--margem), 1320px); margin-inline: auto; }
+.vp-onde .v-cab { margin-bottom: 1rem; }
+.vp-onde .v-titulo { font-size: clamp(1.7rem, 1.2rem + 1.5vw, 2.7rem); }
+.vp-onde .v-titulo em { display: block; color: inherit; opacity: .78; }
+.vp-onde .v-perto { columns: 2; column-gap: 2.4rem; margin-bottom: 1.1rem; font-size: .94rem; }
+.vp-onde .v-perto li { break-inside: avoid; padding: .36rem 0; }
+/* mapa da costa (fora das páginas desde 2026-11-07; fica para voltar) */
+.vk { position: relative; margin: 0; aspect-ratio: var(--ar); overflow: hidden; }
+.vk img { width: 100%; height: 100%; object-fit: cover; }
+.vk--tm { display: none; }
+.vk svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.vk polyline { fill: none; stroke: var(--destaque); stroke-width: calc(1.7px * var(--esp)); stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 2.4s var(--sai) calc(var(--i) * .28s); }
+.vk.visto polyline { stroke-dashoffset: 0; }
+.vk__p { position: absolute; display: flex; align-items: baseline; gap: .45em; padding-left: .85em; transform: translate(-.3em, -50%); white-space: nowrap; font-size: clamp(.84rem, .76rem + .3vw, 1.05rem); color: var(--escuro); }
+.vk__p.vk__p--esq { padding: 0 .85em 0 0; transform: translate(calc(-100% + .3em), -50%); }
+.vk__p.vk__p--esq i { left: auto; right: 0; }
+.vk__p i { position: absolute; left: 0; top: 50%; width: .6em; height: .6em; margin-top: -.3em; border-radius: 50%; background: var(--destaque); box-shadow: 0 0 0 2px #fff; }
+.vk__p b { font-family: var(--serif); font-weight: 400; }
+.vk__p small { font-size: .78em; font-weight: 500; }
+.vk figcaption { position: absolute; left: 10px; bottom: 7px; font-size: .68rem; color: var(--escuro); }
+
+/* ---------- tablet e telemóvel ---------- */
+@media (max-width: 900px) {
+  .vp-onde__t { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 900px) {
+  .vp-abre__g { grid-template-columns: minmax(0, 1fr); }
+  .vb-g { grid-template-columns: minmax(0, 1fr); }
+  .vb-lado { position: static; max-height: none; overflow: visible; order: -1; }
+  .vb-tem { grid-template-columns: repeat(2, 1fr); }
+  .ve { grid-template-columns: repeat(2, 1fr); }
+  .v-outra { grid-template-columns: minmax(0, 1fr); }
+  .vk--pc { display: none; }
+  .vk--tm { display: block; }
+}
+@media (max-width: 760px) {
+  .hero__foto img { object-position: var(--hero-foco-tm, var(--hero-foco, 50% 50%)); }
+  .vl-hero--cima .vl-hero__ecra { justify-content: flex-end; padding-top: 0; }
+  .vl-hero--preso.vl-hero--cima .vl-hero__ecra { justify-content: flex-start; padding-top: calc(var(--topo-h) + 1rem); }
+  .vp-hero__ecra h1 em { display: block; }
+  .vb-hor { grid-template-columns: minmax(0, 1fr); }
+  .vc-lista, .vg { grid-template-columns: minmax(0, 1fr); }
+  .vc:nth-child(2) { margin-top: 0; }
+  .vb-mos { grid-template-columns: 1fr 1fr; gap: 4px; }
+  .vb-mos > button:first-child { grid-row: auto; grid-column: 1 / -1; height: auto; aspect-ratio: 3 / 2; }
+  #onde .v-perto, .vp-onde .v-perto { columns: 1; }
+  #onde .vm { margin-inline: calc(-1 * var(--margem)); }
+  .vp-dia__g { grid-template-columns: minmax(0, 1fr); }
+  body { padding-bottom: 0; }
+}
+/* tablet ao alto: o vídeo largo corta-se muito; o enquadramento puxa para o lado do mar, onde está o nome */
+@media (min-width: 761px) and (max-aspect-ratio: 1/1) {
+  .vl-hero--preso .hero__foto img, .vl-hero--preso .hero__foto video { object-position: 24% 50%; }
+}
+/* ao alto: a carta fica numa faixa presa debaixo do topo, e os lugares passam por baixo dela */
+@media (max-width: 900px) and (min-height: 560px) {
+  .vt__cab { position: static; width: auto; padding: clamp(4.5rem, 9vw, 8rem) var(--margem) 2rem; }
+  .vt .v-titulo { font-size: clamp(1.7rem, 1.35rem + 1.5vw, 2.4rem); }
+  .vt__palco { top: var(--topo-h); z-index: 3; height: 42svh; }
+  .vt__carta { width: calc(max(172vw, 42svh * var(--ar)) * var(--zmax)); }
+  .vt__palco .vm__norte { display: none; }
+  .vt__osm { right: 10px; bottom: 6px; }
+  .vt__palco::after { display: none; }
+  .vt__p--lugar small { display: none; }
+  .vt__lista { margin-top: 0; width: auto; padding: 1.8rem var(--margem) 4.5rem; }
+  .vt__lugar { display: block; min-height: 0; }
+  .vt__lugar + .vt__lugar { margin-top: 3rem; }
+}
+/* deitado: fica lado a lado, com a coluna mais justa */
+@media (max-height: 559px) {
+  .vt { --vt-col: 34vw; }
+  .vt__cab { top: 4.6rem; }
+  .vt__lista { padding-top: 100svh; }
+  .vt__lugar { padding-top: var(--topo-h); }
+  .vt__lugar h3 { font-size: 1.15rem; }
+  .vt__lugar p { font-size: .9rem; line-height: 1.35; }
+  .vt__palco .vm__norte { display: none; }
+}
+@media (max-width: 480px) {
+  .ve { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+  .vb-tem { gap: .7rem 1rem; }
+  .vb-tem li { font-size: .92rem; }
+}
+@media (max-height: 559px) and (min-width: 561px) {
+  .vl-hero__ecra { gap: .4rem; padding-bottom: 1rem; }
+  .vl-hero__ecra h1 { font-size: 3rem; }
+  .vp-hero__ecra { padding-top: calc(var(--topo-h) + .4rem); }
+  .vp-hero__ecra h1 { font-size: 2.2rem; margin: .2rem 0; }
+  .vp-hero__ecra h1 em { display: inline; }
+}
+
+/* premium: a reserva sempre à mão; depois do hero o topo mostra o preço «desde» ao lado do botão (no telemóvel há a barra de baixo) */
+.topo__res { display: flex; align-items: center; gap: .55rem; }
+.topo__preco { font-size: .9rem; white-space: nowrap; opacity: 0; transform: translate3d(8px, 0, 0); transition: opacity .5s var(--sai), transform .6s var(--sai); }
+.topo__preco b { font-weight: 600; font-size: 1.02rem; }
+.preco-on .topo__preco { opacity: 1; transform: none; }
+@media (max-width: 1240px) { .topo__preco { display: none; } }
+@media (prefers-reduced-motion: reduce) { .topo__preco { transition: none; } }
+
+/* ---------- topo e botões de reservar (2026-11-07, inspirado na Quinta das Donas) ----------
+   menu à esquerda, o nome ao centro, WhatsApp e Reservar à direita; no hero e na barra do telemóvel, Reservar + WhatsApp lado a lado */
+.topo--centro { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); grid-template-areas: "nav marca res"; gap: 1.5rem; }
+.topo--centro .topo__nav { grid-area: nav; justify-self: start; }
+.topo--centro .topo__marca { grid-area: marca; }
+.topo--centro .topo__res { grid-area: res; justify-self: end; }
+.topo__preco { margin-right: .55rem; }
+.i-wpp { width: 1.1em; height: 1.1em; flex: none; fill: currentColor; }
+.topo__wpp { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 4px; color: inherit; border: 1px solid rgba(255, 255, 255, .45); background: rgba(24, 24, 26, .3); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); transition: background .3s, border-color .3s, transform .3s var(--sai); }
+.topo__wpp .i-wpp { width: 18px; height: 18px; filter: drop-shadow(0 1px 2px rgba(14, 14, 16, .35)); }
+.topo__wpp:hover { background: rgba(24, 24, 26, .5); transform: translateY(-1px); }
+.topo.solido .topo__wpp { border-color: color-mix(in srgb, var(--tinta) 24%, transparent); background: transparent; color: var(--destaque); }
+.topo.solido .topo__wpp .i-wpp { filter: none; }
+.topo.solido .topo__wpp:hover { background: color-mix(in srgb, var(--destaque) 8%, transparent); }
+.v-botoes { display: flex; flex-wrap: wrap; gap: .7rem; text-shadow: none; }
+.v-ir { min-height: 48px; padding-inline: 1.9rem; background: var(--claro); color: var(--tinta); font-size: .95rem; box-shadow: 0 14px 34px -14px rgba(8, 26, 40, .7); }
+.v-ir:hover { background: #fff; }
+.v-ir::after { color: var(--destaque); }
+.botao--wpp { min-height: 48px; padding-inline: 1.45rem; font-size: .95rem; color: #fff; }
+@media (max-width: 1000px) { .topo--centro { grid-template-areas: ". marca res"; } }
+@media (max-width: 760px) {
+  .topo--centro .topo__wpp { display: none; }
+  .vl-hero--preso.vl-hero--cima .vl-hero__ecra { padding-top: calc(var(--topo-h) + 9svh); }
+  .barra .barra__wpp { display: flex; align-items: center; justify-content: center; gap: .5em; border: 1px solid color-mix(in srgb, var(--tinta) 22%, transparent); color: var(--tinta); }
+  .barra .barra__wpp .i-wpp { color: var(--destaque); }
+}

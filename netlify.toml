@@ -1,0 +1,16 @@
+# Site estático, sem build. Publica-se só a pasta site/.
+[build]
+  publish = "site"
+  command = ""
+
+# Imagens: uma semana em cache (os ficheiros mantêm o nome quando são trocados).
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
